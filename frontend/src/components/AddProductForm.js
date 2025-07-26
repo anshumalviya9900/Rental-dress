@@ -22,7 +22,7 @@ const AddProductForm = () => {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const res = await fetch("baseUrl/admin/allcategory",{
+        const res = await fetch(`${baseUrl}/admin/allcategory`,{
            credentials: "include",
         });
         const data = await res.json();
@@ -60,7 +60,7 @@ const AddProductForm = () => {
     });
 
     try {
-      const response = await fetch("baseUrl/admin/addproduct", {
+      const response = await fetch(`${baseUrl}/admin/addproduct`, {
         credentials: "include",
         method: "POST",
         body: data,
