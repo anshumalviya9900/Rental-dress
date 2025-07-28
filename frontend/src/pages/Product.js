@@ -4,9 +4,10 @@ import NavBar from "./NavBar";
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import config from "../Config"; 
+import {BASE_URL} from "../Config"; 
 
-const baseUrl = config.BASE_URL;
+
+const baseUrl = BASE_URL;
 const Product = () => {
   const navigate = useNavigate();
   const { id } = useParams();
@@ -23,7 +24,7 @@ const Product = () => {
   const [canReview, setCanReview] = useState(false);
 
   useEffect(() => {
-    fetch(`baseUrl/products/product/${id}`, {
+    fetch(`${baseUrl}/products/product/${id}`, {
       method: "GET",
       credentials: "include",
     })
@@ -41,7 +42,7 @@ const Product = () => {
       .then((data) => setReviews(data.reviews || []))
       .catch((err) => console.error(err));
 
-    fetch(`baseUrl/review/is-eligible/${id}`, {
+    fetch(`${baseUrl}/review/is-eligible/${id}`, {
       credentials: "include",
     })
       .then((res) => res.json())
@@ -53,7 +54,7 @@ const Product = () => {
     if (!product?._id || product._id.length !== 24) return;
     try {
       setAddingToCart(true);
-      const res = await fetch(`baseUrl/cart/add`, {
+      const res = await fetch(`${baseUrl}/cart/add`, {
         method: "POST",
         credentials: "include",
         headers: { "Content-Type": "application/json" },
@@ -142,7 +143,7 @@ const Product = () => {
               {product?.image?.map((img, i) => (
                 <img
                   key={i}
-                  src={`baseUrl/${img.replace(/\\/g, "/")}`}
+                  src={`${baseUrl}/${img.replace(/\\/g, "/")}`}
                   alt={`thumb-${i}`}
                   onClick={() => setMainImage(img.replace(/\\/g, "/"))}
                   style={{
@@ -155,7 +156,7 @@ const Product = () => {
                 />
               ))}
             </div>
-            <img src={`baseUrl/${mainImage}`} alt="main" style={styles.mainImage} />
+            <img src={`${baseUrl}/${mainImage}`} alt="main" style={styles.mainImage} />
           </div>
 
           <div style={styles.rightDetail}>
