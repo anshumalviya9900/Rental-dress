@@ -4,16 +4,17 @@ import { useNavigate } from "react-router-dom";
 import Apis from "../Apis";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import config from "../Config"; 
+import {BASE_URL} from "../Config"; 
 
-const baseUrl = config.BASE_URL;
+
+const baseUrl = BASE_URL;
 const AdminLogout = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
     const logoutUser = async () => {
       try {
-        await axios.post(`baseUrl/admin/logout`, {}, {
+        await axios.post(`${baseUrl}/admin/logout`, {}, {
           withCredentials: true,
         });
 
