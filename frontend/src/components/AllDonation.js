@@ -3,9 +3,10 @@ import axios from "axios";
 import AdminNav from "./AdminNav";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import config from "../Config";
+import {BASE_URL} from "../Config"; 
 
-const baseUrl = config.BASE_URL;
+
+const baseUrl = BASE_URL;
 
 const AllDonation = () => {
   const [approvedDonations, setDonations] = useState([]);
@@ -17,7 +18,7 @@ const AllDonation = () => {
 
   const fetchAllDonations = async () => {
     try {
-      const res = await axios.get(`baseUrl/dress/all-donations`, {
+      const res = await axios.get(`${baseUrl}/dress/all-donations`, {
         withCredentials: true,
       });
       setDonations(res.data.donations || []);
