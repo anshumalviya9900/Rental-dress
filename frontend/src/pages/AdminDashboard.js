@@ -4,10 +4,11 @@ import axios from "axios";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useState } from "react";
-import config from "../Config"; 
+import {BASE_URL} from "../Config"; 
 
+
+const baseUrl = BASE_URL;
 axios.defaults.withCredentials = true;
-const baseUrl = config.BASE_URL;
 const AdminDashboard = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
