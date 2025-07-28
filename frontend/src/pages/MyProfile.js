@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import config from "../Config"; 
+import {BASE_URL} from "../Config"; 
 
-const baseUrl = config.BASE_URL;
+
+const baseUrl = BASE_URL;
 const UserProfileView = () => {
   const [profile, setProfile] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -19,7 +20,7 @@ const UserProfileView = () => {
     setMessage("");
 
     axios
-      .get(`baseUrl/userprofile/fetch/me`, {
+      .get(`${baseUrl}/userprofile/fetch/me`, {
         withCredentials: true,
       })
       .then((res) => {
@@ -38,7 +39,7 @@ const UserProfileView = () => {
     if (!confirmDelete) return;
 
     try {
-      await axios.delete(`baseUrl/userprofile/delete`, {
+      await axios.delete(`${baseUrl}/userprofile/delete`, {
         withCredentials: true,
       });
       setMessage(" Profile deleted successfully!");
@@ -67,7 +68,7 @@ const UserProfileView = () => {
 
             {profile.profilepicture && (
               <img
-                src={`baseUrl${profile.profilepicture}`}
+                src={`${baseUrl}${profile.profilepicture}`}
                 alt="Profile"
                 style={styles.image}
               />
