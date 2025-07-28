@@ -2,9 +2,10 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import config from "../Config"; 
+import {BASE_URL} from "../Config"; 
 
-const baseUrl = config.BASE_URL;
+
+const baseUrl = BASE_URL;
 const EditProfileForm = () => {
   const [formData, setFormData] = useState({
     name: "",
@@ -17,7 +18,7 @@ const EditProfileForm = () => {
 
   useEffect(() => {
     axios
-      .get(`baseUrl/userprofile/fetch/me`, { withCredentials: true })
+      .get(`${baseUrl}/userprofile/fetch/me`, { withCredentials: true })
       .then((res) => setFormData(res.data.profile))
       .catch((err) => {
         console.error(" Failed to load profile:", err);
@@ -44,7 +45,7 @@ const EditProfileForm = () => {
     if (newImage) data.append("profilepicture", newImage);
 
     try {
-      await axios.post(`baseUrl/userprofile/update`, data, {
+      await axios.post(`${baseUrl}/userprofile/update`, data, {
         withCredentials: true,
         headers: { "Content-Type": "multipart/form-data" },
       });
@@ -114,7 +115,7 @@ const EditProfileForm = () => {
 
           {formData.profilepicture && (
             <img
-              src={`baseUrl${formData.profilepicture}?t=${Date.now()}`}
+              src={`${baseUrl}${formData.profilepicture}?t=${Date.now()}`}
               alt="Profile"
               style={styles.profileImage}
             />
