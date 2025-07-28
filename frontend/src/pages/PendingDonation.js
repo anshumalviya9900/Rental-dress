@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import AdminNav from "../components/AdminNav";
-import config from "../Config"; 
+import {BASE_URL} from "../Config"; 
 
-const baseUrl = config.BASE_URL;
+
+const baseUrl = BASE_URL;
 const PendingDonation = () => {
   const [pendingProducts, setPendingProducts] = useState([]);
 
@@ -14,7 +15,7 @@ const PendingDonation = () => {
   const fetchPendingDonations = async () => {
     try {
       const res = await axios.get(
-        `baseUrl/admin/pending-donations`,
+        `${baseUrl}/admin/pending-donations`,
         { withCredentials: true }           
       );
 
@@ -30,7 +31,7 @@ const PendingDonation = () => {
       const token = localStorage.getItem("token");
 
       await axios.put(
-        `baseUrl/admin/approve-donation/${productId}`,
+        `${baseUrl}/admin/approve-donation/${productId}`,
         {},
         {
           headers: { Authorization: `Bearer ${token}` },
@@ -58,7 +59,7 @@ const PendingDonation = () => {
             pendingProducts.map((product) => (
               <div key={product._id} style={styles.card}>
                 <img
-                  src={`baseUrl/uploads/${product.image[0]}`}
+                  src={`${baseUrl}/uploads/${product.image[0]}`}
                   alt={product.name}
                   style={styles.image}
                 />
