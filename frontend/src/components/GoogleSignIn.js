@@ -4,9 +4,10 @@ import { signInWithPopup } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import UserHome from "../pages/UserHome";
 import Apis from "../Apis";
-import config from "../Config"; 
+import {BASE_URL} from "../Config"; 
 
-const baseUrl = config.BASE_URL;
+
+const baseUrl = BASE_URL;
 const GoogleSignIn = () => {
      const navigate = useNavigate();
     const handleGoogleLogin = async () => {
@@ -14,7 +15,7 @@ const GoogleSignIn = () => {
             const result = await signInWithPopup(auth, provider);
             const user = result.user;
 
-            const response = await fetch(`baseUrl/user/google-login`, {
+            const response = await fetch(`${baseUrl}/user/google-login`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
