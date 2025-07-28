@@ -5,9 +5,10 @@ import NavBar from "./NavBar";
 import PayButton from "./PayButton";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import config from "../Config"; 
+import {BASE_URL} from "../Config"; 
 
-const baseUrl = config.BASE_URL;
+
+const baseUrl = BASE_URL;
 const CartPage = () => {
   const [cartItems, setCartItems] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
@@ -24,7 +25,7 @@ const CartPage = () => {
 
   const fetchUserName = async () => {
     try {
-      const res = await axios.get(`baseUrl/userprofile/fetch/me`, {
+      const res = await axios.get(`${baseUrl}/userprofile/fetch/me`, {
         withCredentials: true,
       });
       setUserName(res.data.name || "Unknown");
@@ -36,7 +37,7 @@ const CartPage = () => {
 
   const fetchCart = async () => {
     try {
-      const res = await axios.get(`baseUrl/cart/user-cart`, {
+      const res = await axios.get(`${baseUrl}/cart/user-cart`, {
         withCredentials: true,
       });
       const products = res.data.products || [];
@@ -54,7 +55,7 @@ const CartPage = () => {
 
   const removeFromCart = async (productId) => {
     try {
-      await axios.delete(`baseUrl/cart/remove/${productId}`, { withCredentials: true });
+      await axios.delete(`${baseUrl}/cart/remove/${productId}`, { withCredentials: true });
       const updated = cartItems.filter(item => item.productId._id !== productId);
       setCartItems(updated);
       calculateTotal(updated);
@@ -76,7 +77,7 @@ const CartPage = () => {
     }
 
     try {
-      const res = await axios.post(`baseUrl/order/place`, {
+      const res = await axios.post(`${baseUrl}/order/place`, {
         fromDate,
         toDate,
       }, {
@@ -101,7 +102,7 @@ const CartPage = () => {
     const orderId = localStorage.getItem("orderId");
 
     try {
-      await axios.post(`baseUrl/payment/payment-success`, { orderId }, { withCredentials: true });
+      await axios.post(`${baseUrl}/payment/payment-success`, { orderId }, { withCredentials: true });
       toast.success(" Payment successful!");
       setTimeout(() => navigate("/"), 1500);
     } catch (error) {
@@ -148,7 +149,7 @@ const CartPage = () => {
             return (
               <div key={i} style={styles.productRow}>
                 <img
-                  src={`baseUrl/${product.image[0].replace(/\\/g, "/")}`}
+                  src={`${baseUrl}/${product.image[0].replace(/\\/g, "/")}`}
                   alt="Product"
                   style={styles.image}
                 />
