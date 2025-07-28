@@ -3,9 +3,10 @@ import { useNavigate, useParams } from "react-router-dom";
 import NavBar from "./NavBar";
 import axios from "axios";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
-import config from "../Config"; 
+import {BASE_URL} from "../Config"; 
 
-const baseUrl = config.BASE_URL;
+
+const baseUrl = BASE_URL;
 const ProductsByCategory = () => {
   const navigate = useNavigate();
   const { categoryName } = useParams();
@@ -17,13 +18,13 @@ const ProductsByCategory = () => {
     const fetchData = async () => {
       try {
         const productRes = await fetch(
-          `baseUrl/products/category/${categoryName}`
+          `${baseUrl}/products/category/${categoryName}`
         );
         const productData = await productRes.json();
         setProducts(productData.products || []);
 
         const wishlistRes = await axios.get(
-          `baseUrl/wishlist/user-wishlist`,
+          `${baseUrl}/wishlist/user-wishlist`,
           { withCredentials: true }
         );
 
@@ -43,14 +44,14 @@ const ProductsByCategory = () => {
     try {
       if (!wishlistIds.includes(productId)) {
         await axios.post(
-          `baseUrl/wishlist/add`,
+          `${baseUrl}/wishlist/add`,
           { productId },
           { withCredentials: true }
         );
         setWishlistIds((prev) => [...prev, productId]);
       } else {
         await axios.delete(
-          `baseUrl/wishlist/remove/${productId}`,
+          `${baseUrl}/wishlist/remove/${productId}`,
           { withCredentials: true }
         );
         setWishlistIds((prev) => prev.filter((id) => id !== productId));
@@ -99,7 +100,7 @@ const ProductsByCategory = () => {
                
                   <div onClick={() => navigate(`/${product._id}`)} style={imgWrapper}>
                     <img
-                      src={ `baseUrl/${(product.image?.[0] || "").replace(/\\/g, "/")}`}
+                      src={ `${baseUrl}/${(product.image?.[0] || "").replace(/\\/g, "/")}`}
                       alt={product.name}
                       style={imgStyle}
                     />
