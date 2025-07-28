@@ -2,9 +2,10 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import NavBar from "./NavBar";
-import config from "../Config"; 
+import {BASE_URL} from "../Config"; 
 
-const baseUrl = config.BASE_URL;
+
+const baseUrl = BASE_URL;
 const WishlistPage = () => {
   const [wishlistItems, setWishlistItems] = useState([]);
   const navigate = useNavigate();
@@ -15,7 +16,7 @@ const WishlistPage = () => {
 
   const fetchWishlist = async () => {
     try {
-      const res = await axios.get(`baseUrl/wishlist/user-wishlist`, {
+      const res = await axios.get(`${baseUrl}/wishlist/user-wishlist`, {
         withCredentials: true,
       });
       const products = res.data.wishlist?.products || [];
@@ -28,7 +29,7 @@ const WishlistPage = () => {
 
   const handleRemove = async (productId) => {
     try {
-      await axios.delete(`baseUrl/wishlist/remove/${productId}`, {
+      await axios.delete(`${baseUrl}/wishlist/remove/${productId}`, {
         withCredentials: true,
       });
       const updated = wishlistItems.filter((item) => item._id !== productId);
