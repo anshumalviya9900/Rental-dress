@@ -3,9 +3,10 @@ import { useNavigate } from "react-router-dom";
 import Apis from "../Apis";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import config from "../Config"; 
+import {BASE_URL} from "../Config"; 
 
-const baseUrl = config.BASE_URL;
+
+const baseUrl = BASE_URL;
 const AdminSignIn = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({ email: "", password: "" });
@@ -23,7 +24,7 @@ const AdminSignIn = () => {
   setError("");
 
   try {
-    const res = await fetch(`baseUrl/admin/sign-in`, {
+    const res = await fetch(`${baseUrl}/admin/sign-in`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       credentials: "include",
