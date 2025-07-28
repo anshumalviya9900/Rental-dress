@@ -45,7 +45,7 @@ const SignIn = () => {
       setLoading(true);
 
       try {
-        const response = await fetch(`${baseUrl}/user/sign-in", {
+        const response = await fetch(`${baseUrl}/user/sign-in`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ email, password: trimmed }),
