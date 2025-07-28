@@ -3,9 +3,10 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaEye } from "react-icons/fa";
 import NavBar from "./NavBar";
-import config from "../Config"; 
+import {BASE_URL} from "../Config"; 
 
-const baseUrl = config.BASE_URL;
+
+const baseUrl = BASE_URL;
 const Signup = () => {
   const navigate = useNavigate();
   const [step, setStep] = useState(0);
@@ -52,7 +53,7 @@ const Signup = () => {
       setLoading(true);
 
       try {
-        const res = await fetch(`baseUrl/user/sign-up`, {
+        const res = await fetch(`${baseUrl}/user/sign-up`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(formData),
@@ -83,7 +84,7 @@ const Signup = () => {
       setLoading(true);
 
       try {
-        const res = await fetch(`baseUrl/user/verify-otp`, {
+        const res = await fetch(`${baseUrl}/user/verify-otp`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ email: otpData.email, otp: trimmed }),
