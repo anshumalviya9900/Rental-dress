@@ -1,8 +1,9 @@
 import React, { useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import config from "../Config"; 
+import {BASE_URL} from "../Config"; 
 
-const baseUrl = config.BASE_URL;
+
+const baseUrl = BASE_URL;
 function VerifyEmail() {
     const { token } = useParams();
     const navigate = useNavigate();
@@ -10,7 +11,7 @@ function VerifyEmail() {
     useEffect(() => {
         const verify = async () => {
             const response = await fetch(
-                `baseUrl/verify/${token}`,
+                `${baseUrl}/verify/${token}`,
                 { method: "GET" }
             );
 
