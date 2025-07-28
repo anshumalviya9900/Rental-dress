@@ -1,9 +1,10 @@
 import React from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
-import config from "../Config"; 
+import {BASE_URL} from "../Config"; 
 
-const baseUrl = config.BASE_URL;
+
+const baseUrl = BASE_URL;
 const PayButton = ({ amount = 0, onSuccess, disabled = false }) => {
   const loadRazorpayScript = () => {
     return new Promise((resolve) => {
@@ -31,7 +32,7 @@ const PayButton = ({ amount = 0, onSuccess, disabled = false }) => {
       console.log(" Creating order for amount:", amount);
 
       const orderRes = await axios.post(
-        `baseUrl/payment/create-order`,
+        `${baseUrl}/payment/create-order`,
         { amount: Number(amount) },
         { withCredentials: true }
       );
@@ -48,7 +49,7 @@ const PayButton = ({ amount = 0, onSuccess, disabled = false }) => {
         handler: async function (response) {
           try {
             await axios.post(
-             `baseUrl/payment/verify-payment`,
+             `${baseUrl}/payment/verify-payment`,
               {
                 razorpay_order_id: response.razorpay_order_id,
                 razorpay_payment_id: response.razorpay_payment_id,
