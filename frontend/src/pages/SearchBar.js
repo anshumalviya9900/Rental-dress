@@ -2,9 +2,10 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
 import NavBar from "./NavBar";
-import config from "../Config"; 
+import {BASE_URL} from "../Config"; 
 
-const baseUrl = config.BASE_URL;
+
+const baseUrl = BASE_URL;
 const SearchPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -19,10 +20,10 @@ const SearchPage = () => {
   useEffect(() => {
     const fetchSearchResults = async () => {
       try {
-        const res = await axios.get(`baseUrl/products/search?q=${search}`);
+        const res = await axios.get(`${baseUrl}/products/search?q=${search}`);
         setProducts(res.data.products || []);
 
-        const wishlistRes = await axios.get(`baseUrl/wishlist/user-wishlist`, {
+        const wishlistRes = await axios.get(`${baseUrl}/wishlist/user-wishlist`, {
           withCredentials: true,
         });
 
@@ -42,10 +43,10 @@ const SearchPage = () => {
   const handleAddToWishlist = async (productId) => {
     try {
       if (!wishlistIds.includes(productId)) {
-        await axios.post(`baseUrl/wishlist/add`, { productId }, { withCredentials: true });
+        await axios.post(`${baseUrl}/wishlist/add`, { productId }, { withCredentials: true });
         setWishlistIds((prev) => [...prev, productId]);
       } else {
-        await axios.delete(`baseUrl/wishlist/remove/${productId}`, { withCredentials: true });
+        await axios.delete(`${baseUrl}/wishlist/remove/${productId}`, { withCredentials: true });
         setWishlistIds((prev) => prev.filter((id) => id !== productId));
       }
     } catch (err) {
@@ -123,7 +124,7 @@ const SearchPage = () => {
 
                 <div onClick={() => navigate(`/${product._id}`)} style={imgWrapper}>
                   <img
-                    src={`baseUrl/${(product?.image?.[0] || "").replace(/\\/g, "/")}`}
+                    src={`${baseUrl}/${(product?.image?.[0] || "").replace(/\\/g, "/")}`}
                     alt={product.name || "product"}
                     style={imgStyle}
                     onError={(e) => {
