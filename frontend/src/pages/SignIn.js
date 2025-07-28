@@ -2,9 +2,10 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaEye } from "react-icons/fa";
 import NavBar from "./NavBar";
-import config from "../Config"; 
+import {BASE_URL} from "../Config"; 
 
-const baseUrl = config.BASE_URL;
+
+const baseUrl = BASE_URL;
 const SignIn = () => {
   const navigate = useNavigate();
   const [messages, setMessages] = useState([
@@ -44,7 +45,7 @@ const SignIn = () => {
       setLoading(true);
 
       try {
-        const response = await fetch("baseUrl/user/sign-in", {
+        const response = await fetch(`${baseUrl}/user/sign-in", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ email, password: trimmed }),
