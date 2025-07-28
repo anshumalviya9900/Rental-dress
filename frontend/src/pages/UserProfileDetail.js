@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import config from "../Config"; 
+import {BASE_URL} from "../Config"; 
 
-const baseUrl = config.BASE_URL;
+
+const baseUrl = BASE_URL;
 const UserProfileDetail = () => {
   const [profile, setProfile] = useState(null);
 
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const res = await axios.get(`baseUrl/userprofile/fetch/me`, {
+        const res = await axios.get(`${baseUrl}/userprofile/fetch/me`, {
           withCredentials: true,
         });
         setProfile(res.data.profile);
