@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import config from "../Config"; 
+import {BASE_URL} from "../Config"; 
 
-const baseUrl = config.BASE_URL;
+
+const baseUrl = BASE_URL;
 const OrderHistory = () => {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -14,7 +15,7 @@ const OrderHistory = () => {
 
   const fetchOrderHistory = async () => {
     try {
-      const res = await axios.get(`baseUrl/order/history`, {
+      const res = await axios.get(`${baseUrl}/order/history`, {
         withCredentials: true,
       });
       setOrders(res.data.orders);
@@ -31,7 +32,7 @@ const OrderHistory = () => {
     if (!confirmCancel) return;
 
     try {
-      await axios.delete(`baseUrl/order/cancel/${orderId}`, {
+      await axios.delete(`${baseUrl}/order/cancel/${orderId}`, {
         withCredentials: true,
       });
       setOrders(orders.filter((order) => order._id !== orderId));
