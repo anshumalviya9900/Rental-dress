@@ -3,9 +3,10 @@ import AdminNav from "./AdminNav";
 import Apis from "../Apis";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import config from "../Config"; 
+import {BASE_URL} from "../Config"; 
 
-const baseUrl = config.BASE_URL;
+
+const baseUrl = BASE_URL;
 
 const AddProductForm = () => {
   const [formData, setFormData] = useState({
