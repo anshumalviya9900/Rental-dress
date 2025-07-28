@@ -2,9 +2,10 @@
 import React, { useEffect, useState } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
 import axios from "axios";
-import config from "../Config"; 
+import {BASE_URL} from "../Config"; 
 
-const baseUrl = config.BASE_URL;
+
+const baseUrl = BASE_URL;
 
 const AdminProtectedRoute = ({ children }) => {
   const [isLoading, setIsLoading] = useState(true);
@@ -13,7 +14,7 @@ const AdminProtectedRoute = ({ children }) => {
 
   useEffect(() => {
     axios
-      .get(`baseUrl/admin/check-auth`, { withCredentials: true })
+      .get(`${baseUrl}/admin/check-auth`, { withCredentials: true })
       .then((res) => {
         if (res.data.role == "admin") {
           navigate("/admin/dashboard");
