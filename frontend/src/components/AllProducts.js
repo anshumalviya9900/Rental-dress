@@ -4,9 +4,10 @@ import AdminNav from "./AdminNav";
 import Apis from "../Apis";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import config from "../Config"; 
+import {BASE_URL} from "../Config"; 
 
-const baseUrl = config.BASE_URL;
+
+const baseUrl = BASE_URL;
 const AllProducts = () => {
   const navigate = useNavigate();
   const [products, setProducts] = useState([]);
@@ -25,7 +26,7 @@ const AllProducts = () => {
 
   const fetchProducts = async () => {
     try {
-      const res = await fetch(`baseUrl/admin/allproducts`, {
+      const res = await fetch(`${baseUrl}/admin/allproducts`, {
         method: "GET",
         credentials: "include", 
       });
@@ -43,7 +44,7 @@ const AllProducts = () => {
     if (!confirmDelete) return;
 
     try {
-      const res = await fetch(`baseUrl/admin/delete-product/${productId}`, {
+      const res = await fetch(`${baseUrl}/admin/delete-product/${productId}`, {
         method: "DELETE",
         credentials: "include", 
       });
@@ -83,7 +84,7 @@ const AllProducts = () => {
   const handleUpdateSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch(`baseUrl/admin/update-product/${editingProduct}`, {
+      const res = await fetch(`${baseUrl}/admin/update-product/${editingProduct}`, {
         method: "PUT",
         credentials: "include",
         headers: {
@@ -217,7 +218,7 @@ const AllProducts = () => {
             {products.map((prod) => (
               <div key={prod._id} style={styles.card}>
                 <img
-                  src={`baseUrl/${(prod.image[0] || "").replace(/\\/g, "/")}`}
+                  src={`${baseUrl}/${(prod.image[0] || "").replace(/\\/g, "/")}`}
                   alt={prod.name}
                   style={styles.image}
                 />
