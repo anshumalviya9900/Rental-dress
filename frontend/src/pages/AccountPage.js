@@ -10,9 +10,10 @@ import { useNavigate } from "react-router-dom";
 import Apis from "../Apis";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import config from "../Config"; 
+import {BASE_URL} from "../Config"; 
 
-const baseUrl = config.BASE_URL;
+
+const baseUrl = BASE_URL;
 export default function AccountPage() {
   const [view, setView] = useState("dashboard");
   const [profile, setProfile] = useState(null);
@@ -21,7 +22,7 @@ export default function AccountPage() {
   useEffect(() => {
     (async () => {
       try {
-        const { data } = await axios.get(`baseUrl/userprofile/fetch/me`, {
+        const { data } = await axios.get(`${baseUrl}/userprofile/fetch/me`, {
           withCredentials: true,
         });
         setProfile(data.profile);
@@ -34,7 +35,7 @@ export default function AccountPage() {
 
   async function handleLogout() {
     try {
-      await axios.post(`baseUrl/user/logout`, {}, { withCredentials: true });
+      await axios.post(`${baseUrl}/user/logout`, {}, { withCredentials: true });
       window.location.href = "/";
     } catch (err) {
       console.error(" logout", err.response?.data || err.message);
@@ -60,7 +61,7 @@ export default function AccountPage() {
   }
 
   const avatarSrc = profile?.profilepicture
-    ? `baseUrl${profile.profilepicture}`
+    ? `${baseUrl}${profile.profilepicture}`
     : "https://via.placeholder.com/100";
 
   return (
