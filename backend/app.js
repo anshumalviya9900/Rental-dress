@@ -31,7 +31,7 @@ app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 app.use(
   cors({
-    origin:"https://rental-dress-1.onrender.com",
+    origin:"https://rental-dress-frontend.onrender.com",
     credentials: true,
   })
 );
