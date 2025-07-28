@@ -2,9 +2,10 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import config from "../Config"; 
+import {BASE_URL} from "../Config"; 
 
-const baseUrl = config.BASE_URL;
+
+const baseUrl = BASE_URL;
 const DressDonationSection = () => {
   const navigate = useNavigate();
 
