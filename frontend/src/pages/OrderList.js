@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import config from "../Config"; 
+import {BASE_URL} from "../Config"; 
 
-const baseUrl = config.BASE_URL;
+
+const baseUrl = BASE_URL;
 const OrderList = () => {
   const [orders, setOrders] = useState([]);
 
@@ -12,7 +13,7 @@ const OrderList = () => {
 
   const getOrders = async () => {
     try {
-      const res = await axios.get(`baseUrl/orders/my-orders`, {
+      const res = await axios.get(`${baseUrl}/orders/my-orders`, {
         withCredentials: true,
       });
       setOrders(res.data.orders || []);
