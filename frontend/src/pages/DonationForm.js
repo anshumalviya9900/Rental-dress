@@ -3,10 +3,10 @@ import axios from "axios";
 import NavBar from "./NavBar";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import config from "../Config"; 
-import { AlignCenter } from "lucide-react";
+import {BASE_URL} from "../Config"; 
 
-const baseUrl = config.BASE_URL;
+
+const baseUrl = BASE_URL;
 const DonateForm = () => {
   const [form, setForm] = useState({ name: "", description: "" });
   const [donations, setDonations] = useState([]);
@@ -18,7 +18,7 @@ const DonateForm = () => {
 
   const fetchMyDonations = async () => {
     try {
-      const res = await axios.get(`baseUrl/dress/my-donations`, {
+      const res = await axios.get(`${baseUrl}/dress/my-donations`, {
         withCredentials: true,
       });
       setDonations(res.data.donations || []);
@@ -45,7 +45,7 @@ const DonateForm = () => {
     images.forEach((img) => formData.append("images", img));
 
     try {
-      await axios.post(`baseUrl/dress/donate`, formData, {
+      await axios.post(`${baseUrl}/dress/donate`, formData, {
         withCredentials: true,
       });
       toast.success("🎉 Dress Donated Successfully!");
@@ -111,7 +111,7 @@ const DonateForm = () => {
                 <div key={dress._id} style={cardStyle}>
                   {dress.image && (
                     <img
-                      src={`baseUrl/uploads/${dress.image}`}
+                      src={`${baseUrl}/uploads/${dress.image}`}
                       alt={dress.name}
                       style={{
                         width: "200px",
