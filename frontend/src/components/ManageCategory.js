@@ -2,9 +2,10 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import AdminNav from './AdminNav';
 import Apis from '../Apis';
-import config from "../Config"; 
+import {BASE_URL} from "../Config"; 
 
-const baseUrl = config.BASE_URL;
+
+const baseUrl = BASE_URL;
 const ManageCategory = () => {
   const [categoryName, setCategoryName] = useState('');
   const [categories, setCategories] = useState([]);
@@ -17,7 +18,7 @@ const ManageCategory = () => {
 
   const fetchCategories = async () => {
     try {
-      const res = await axios.get(`baseUrl/admin/allcategory`, { withCredentials: true });
+      const res = await axios.get(`${baseUrl}/admin/allcategory`, { withCredentials: true });
       const categoryArray = Array.isArray(res.data.categories) ? res.data.categories : [];
       setCategories(categoryArray);
     } catch (err) {
@@ -30,9 +31,9 @@ const ManageCategory = () => {
     setLoading(true);
     try {
       if (editId) {
-        await axios.put(`baseUrl/admin/update-category/${editId}`, { categoryName }, { withCredentials: true });
+        await axios.put(`${baseUrl}/admin/update-category/${editId}`, { categoryName }, { withCredentials: true });
       } else {
-        await axios.post(`baseUrl/admin/addcategory`, { categoryName }, { withCredentials: true });
+        await axios.post(`${baseUrl}/admin/addcategory`, { categoryName }, { withCredentials: true });
       }
       setCategoryName('');
       setEditId(null);
@@ -51,7 +52,7 @@ const ManageCategory = () => {
   const handleDelete = async (id) => {
     if (window.confirm('Are you sure to delete this category?')) {
       try {
-        await axios.delete(`baseUrl/admin/delete-category/${id}`, { withCredentials: true });
+        await axios.delete(`${baseUrl}/admin/delete-category/${id}`, { withCredentials: true });
         fetchCategories();
       } catch (err) {
         console.error('Error deleting category', err);
