@@ -2,16 +2,17 @@ import React from "react";
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import config from "../Config"; 
+import {BASE_URL} from "../Config"; 
 
-const baseUrl = config.BASE_URL;
+
+const baseUrl = BASE_URL;
 const DeleteProfileDetail = () => {
   const handleDelete = async () => {
     const confirmDelete = window.confirm("Are you sure you want to delete your profile?");
     if (!confirmDelete) return;
 
     try {
-      const res = await axios.delete(`baseUrl/profile/delete`, {
+      const res = await axios.delete(`${baseUrl}/profile/delete`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
