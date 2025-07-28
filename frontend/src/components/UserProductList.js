@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Apis from "../Apis";
-import config from "../Config"; 
+import {BASE_URL} from "../Config"; 
 
-const baseUrl = config.BASE_URL;
+
+const baseUrl = BASE_URL;
 const UserProductList = () => {
   const navigate = useNavigate();
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    fetch(`baseUrl/admin/allproducts`, {
+    fetch(`${baseUrl}/admin/allproducts`, {
       method: "GET",
       credentials: "include",
     })
@@ -37,7 +38,7 @@ const UserProductList = () => {
             >
               <div style={imgWrapper}>
                 <img
-                  src={`baseUrl/${(product?.image?.[0] || "").replace(/\\/g, "/")}`}
+                  src={`${baseUrl}/${(product?.image?.[0] || "").replace(/\\/g, "/")}`}
                   alt={product.name || "product"}
                   style={imgStyle}
                   onError={(e) => {
