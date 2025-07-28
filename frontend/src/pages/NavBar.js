@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import config from "../Config"; 
+import {BASE_URL} from "../Config"; 
 
-const baseUrl = config.BASE_URL;
+
+const baseUrl = BASE_URL;
 const NavBar = () => {
   const navigate = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -11,7 +12,7 @@ const NavBar = () => {
   const [userRole, setUserRole] = useState("");
 
   useEffect(() => {
-  axios.get("baseUrl/user/current-user", { withCredentials: true })
+  axios.get(`${baseUrl}/user/current-user`, { withCredentials: true })
     .then((res) => {
       console.log("User Info:", res.data); 
       console.log("User Info:", res.data.role); 
@@ -26,7 +27,7 @@ const NavBar = () => {
 }, []);
 
   const handleLogout = async () => {
-    await axios.post(`baseUrl/user/logout`, {}, { withCredentials: true });
+    await axios.post(`${baseUrl}/user/logout`, {}, { withCredentials: true });
     setIsLoggedIn(false);
     navigate("/"); 
   };
